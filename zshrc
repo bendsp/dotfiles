@@ -1,6 +1,11 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Auto-start tmux
+if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
+    tmux attach-session -t main || tmux new-session -s main
+fi
+
 # Set name of the theme to load
 ZSH_THEME="robbyrussell"
 
