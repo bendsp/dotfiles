@@ -1,0 +1,5 @@
+# Aliases
+alias vim="nvim"
+alias please="sudo !!"
+alias oc="opencode"
+alias ocs="opencode ~/Code/sandbox"

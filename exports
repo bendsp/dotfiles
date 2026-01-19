@@ -1,0 +1,7 @@
+# Path and Exports
+export PATH=$(brew --prefix libpq)/bin:$PATH
+export PATH="/Library/TeX/texbin:$PATH"
+export PATH=/Users/ben/.opencode/bin:$PATH
+
+# tabtab source for electron-forge package
+[[ -f /Users/ben/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/ben/.npm/_npx/6913fdfd1ea7a741/node_modules/tabtab/.completions/electron-forge.zsh
