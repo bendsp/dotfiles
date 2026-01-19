@@ -20,5 +20,6 @@ link_file() {
 # Symlink configs
 link_file "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
+link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
 echo "Dotfiles installation complete!"
