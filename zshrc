@@ -13,6 +13,13 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Customize Syntax Highlighting (No green for correct commands)
+ZSH_HIGHLIGHT_STYLES[command]='none'
+ZSH_HIGHLIGHT_STYLES[builtin]='none'
+ZSH_HIGHLIGHT_STYLES[alias]='none'
+ZSH_HIGHLIGHT_STYLES[function]='none'
+ZSH_HIGHLIGHT_STYLES[precommand]='none'
+
 # Load custom dotfiles
 source ~/dotfiles/aliases
 source ~/dotfiles/exports
