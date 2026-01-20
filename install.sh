@@ -21,5 +21,6 @@ link_file() {
 link_file "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+link_file "$DOTFILES_DIR/gitmux.conf" "$HOME/.gitmux.conf"
 
 echo "Dotfiles installation complete!"
