@@ -21,6 +21,9 @@ source $ZSH/oh-my-zsh.sh
 # Initialize Starship
 eval "$(starship init zsh)"
 
+# Initialize Zoxide
+eval "$(zoxide init zsh)"
+
 # Customize Syntax Highlighting (No green for correct commands)
 ZSH_HIGHLIGHT_STYLES[command]='none'
 ZSH_HIGHLIGHT_STYLES[builtin]='none'
