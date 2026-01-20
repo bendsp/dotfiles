@@ -28,16 +28,24 @@ style = "bold red"
 disabled = true
 
 [nodejs]
-format = "via [$symbol]($style) "
+symbol = " "
+style = "bold green"
+format = "[$symbol]($style) "
 
 [python]
-format = "via [$symbol]($style) "
+symbol = " "
+style = "bold yellow"
+format = "[$symbol]($style) "
 
 [rust]
-format = "via [$symbol]($style) "
+symbol = " "
+style = "bold orange"
+format = "[$symbol]($style) "
 
 [lua]
-format = "via [$symbol]($style) "
+symbol = " "
+style = "bold blue"
+format = "[$symbol]($style) "
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
