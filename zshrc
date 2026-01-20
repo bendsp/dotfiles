@@ -34,3 +34,4 @@ ZSH_HIGHLIGHT_STYLES[precommand]='none'
 # Load custom dotfiles
 source ~/dotfiles/aliases
 source ~/dotfiles/exports
+source ~/dotfiles/fzf.zsh
