@@ -20,11 +20,7 @@ else
     USER_PROMPT="$@"
 fi
 
-FULL_PROMPT="$USER_PROMPT
-
---- PANE OUTPUT ---
-$CONTEXT
---- END OUTPUT ---"
-
 # 4. Run opencode
-opencode "$FULL_PROMPT"
+# We pipe the context to ensure it handles newlines correctly
+# and use the --prompt flag if available, or just pass it as an argument
+echo -e "$USER_PROMPT\n\n--- PANE OUTPUT ---\n$CONTEXT\n\n--- END OUTPUT ---" | opencode
