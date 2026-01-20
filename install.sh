@@ -22,5 +22,7 @@ link_file "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 link_file "$DOTFILES_DIR/gitmux.conf" "$HOME/.gitmux.conf"
+mkdir -p "$HOME/.config"
+link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 
 echo "Dotfiles installation complete!"

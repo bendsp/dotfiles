@@ -7,7 +7,7 @@ if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
 fi
 
 # Set name of the theme to load
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 # Which plugins would you like to load?
 plugins=(
@@ -17,6 +17,9 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Initialize Starship
+eval "$(starship init zsh)"
 
 # Customize Syntax Highlighting (No green for correct commands)
 ZSH_HIGHLIGHT_STYLES[command]='none'
