@@ -10,12 +10,21 @@ LAST_PANE=$(tmux display-message -p -t "{last}" "#{pane_id}")
 # -p = print to stdout
 # -t = target pane
 # -S -2000 = start 2000 lines back
-CONTEXT=$(tmux capture-pane -p -t "$LAST_PANE" -S -2000)
+# -J = Join wrapped lines (makes logs easier to read)
+CONTEXT=$(tmux capture-pane -p -t "$LAST_PANE" -S -2000 -J)
 
 # 3. Construct the prompt
-USER_PROMPT="$@"
-FULL_PROMPT="I am sending you the output from my other tmux pane. Please use it as context to answer my question.\n\n--- PANE OUTPUT ---\n$CONTEXT\n\n--- END OUTPUT ---\n\nQUESTION: $USER_PROMPT"
+if [ -z "$1" ]; then
+    USER_PROMPT="Here is the context from my active pane. Please analyze it."
+else
+    USER_PROMPT="$@"
+fi
 
-# 4. Run opencode with the context
-# We use -c (context) if your version supports it, or just append it to the prompt.
+FULL_PROMPT="$USER_PROMPT
+
+--- PANE OUTPUT ---
+$CONTEXT
+--- END OUTPUT ---"
+
+# 4. Run opencode
 opencode "$FULL_PROMPT"
