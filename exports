@@ -1,3 +1,10 @@
+# History Configuration
+HISTSIZE=50000
+SAVEHIST=50000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+
 # Path and Exports
 export PATH=~/dotfiles/bin:$PATH
 export PATH=$(brew --prefix libpq)/bin:$PATH
