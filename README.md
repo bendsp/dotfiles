@@ -44,7 +44,7 @@ This repository contains my personal dotfiles and the tools I use.
 | `zi <dir>` | Interactive fuzzy jump |
 | `Ctrl + R` | Fuzzy history search |
 | `Ctrl + T` | Fuzzy file find |
-| `Alt + C" | Fuzzy directory jump |
+| `Alt + C` | Fuzzy directory jump |
 
 ---
 
