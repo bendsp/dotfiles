@@ -1,6 +1,15 @@
 # Aliases
+alias v="nvim"
 alias vim="nvim"
 alias please="sudo !!"
 alias oc="opencode"
 alias ocs="opencode ~/Code/sandbox"
 alias lg="lazygit"
+alias gs="git status"
+alias ..="cd .."
+
+# Eza (modern ls)
+alias ls="eza --icons --git --group-directories-first"
+alias ll="eza -lbhF --icons --git --group-directories-first"
+alias la="eza -labhF --icons --git --group-directories-first"
+alias lt="eza --tree --level=2 --icons"
