@@ -38,6 +38,28 @@ if [ -n "$CODEX_CI" ] || [ "${__CFBundleIdentifier:-}" = "com.openai.codex" ]; t
   # Override widgets directly so any mapped key path is covered.
   zle -N accept-line codex_accept_line
   zle -N accept-line-and-down-history codex_accept_line_and_down_history
+
+  # Codex app: map common Cmd+Delete sequences to "delete to start of line".
+  # Kept Codex-only so regular terminal key behavior is unchanged.
+  for keymap in emacs viins; do
+    bindkey -M "$keymap" '^U' backward-kill-line
+    bindkey -M "$keymap" '^[[3;9~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;10~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;11~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;12~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;13~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;14~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;15~' backward-kill-line
+    bindkey -M "$keymap" '^[[3;16~' backward-kill-line
+    bindkey -M "$keymap" '^[[127;9u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;10u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;11u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;12u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;13u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;14u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;15u' backward-kill-line
+    bindkey -M "$keymap" '^[[127;16u' backward-kill-line
+  done
 fi
 
 # Initialize Starship with a Codex-specific config to avoid prompt stacking.
