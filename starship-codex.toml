@@ -23,6 +23,9 @@ style = "bold mauve"
 [git_status]
 style = "bold red"
 
+[gcloud]
+disabled = true
+
 [package]
 disabled = true
 
