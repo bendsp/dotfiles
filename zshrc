@@ -1,8 +1,16 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Auto-start tmux (skip inside Codex app terminal)
-if [ -z "$TMUX" ] && [ -n "$PS1" ] && [ -z "$CODEX_CI" ] && [ "${__CFBundleIdentifier:-}" != "com.openai.codex" ]; then
+# App terminals that should keep a lightweight shell instead of auto-starting tmux.
+is_agent_app_terminal() {
+  [ -n "${CODEX_CI:-}" ] || case "${__CFBundleIdentifier:-}" in
+    com.openai.codex|com.openai.chat|com.openai.chatgpt|com.t3tools.t3code) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# Auto-start tmux (skip inside ChatGPT/Codex/T3 Code app terminals)
+if [ -z "$TMUX" ] && [ -n "$PS1" ] && ! is_agent_app_terminal; then
     tmux attach-session -t main || tmux new-session -s main
 fi
 
@@ -18,9 +26,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# Codex app terminal workaround:
-# Cmd+J can emit Enter; ignore accidental empty submits in Codex only.
-if [ -n "$CODEX_CI" ] || [ "${__CFBundleIdentifier:-}" = "com.openai.codex" ]; then
+# ChatGPT/Codex/T3 Code app terminal workaround:
+# Cmd+J can emit Enter; ignore accidental empty submits in app terminals only.
+if is_agent_app_terminal; then
   codex_accept_line() {
     if [[ -z "${BUFFER//[[:space:]]/}" ]]; then
       return 0
@@ -39,8 +47,8 @@ if [ -n "$CODEX_CI" ] || [ "${__CFBundleIdentifier:-}" = "com.openai.codex" ]; t
   zle -N accept-line codex_accept_line
   zle -N accept-line-and-down-history codex_accept_line_and_down_history
 
-  # Codex app: map common Cmd+Delete sequences to "delete to start of line".
-  # Kept Codex-only so regular terminal key behavior is unchanged.
+  # App terminals: map common Cmd+Delete sequences to "delete to start of line".
+  # Kept app-terminal-only so regular terminal key behavior is unchanged.
   for keymap in emacs viins; do
     bindkey -M "$keymap" '^U' backward-kill-line
     bindkey -M "$keymap" '^[[3;9~' backward-kill-line
@@ -62,9 +70,9 @@ if [ -n "$CODEX_CI" ] || [ "${__CFBundleIdentifier:-}" = "com.openai.codex" ]; t
   done
 fi
 
-# Initialize Starship with a Codex-specific config to avoid prompt stacking.
+# Initialize Starship with an app-terminal config to avoid prompt stacking.
 if [ "${TERM:-}" != "dumb" ]; then
-  if [ -n "$CODEX_CI" ] || [ "${__CFBundleIdentifier:-}" = "com.openai.codex" ]; then
+  if is_agent_app_terminal; then
     export STARSHIP_CONFIG="$HOME/.config/starship-codex.toml"
   fi
   eval "$(starship init zsh)"
@@ -84,3 +92,12 @@ ZSH_HIGHLIGHT_STYLES[precommand]='none'
 source ~/dotfiles/aliases
 source ~/dotfiles/exports
 source ~/dotfiles/fzf.zsh
+
+# sentry
+fpath=("/Users/ben/.local/share/zsh/site-functions" $fpath)
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
