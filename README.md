@@ -11,7 +11,7 @@ This repository contains my personal dotfiles and the tools I use.
 - **Editor:** [Neovim](https://neovim.io/) (Gruvbox theme, LSP, Treesitter, Lazy.nvim)
 - **Navigation:** [zoxide](https://github.com/ajeetdsouza/zoxide) (Smarter `cd`), [fzf](https://github.com/junegunn/fzf) (Fuzzy Finder)
 - **Git Utilities:** [lazygit](https://github.com/jesseduffield/lazygit), [gitmux](https://github.com/arl/gitmux)
-- **Modern CLI:** [eza](https://github.com/eza-community/eza) (Improved `ls`)
+- **Modern CLI:** [eza](https://github.com/eza-community/eza) (Improved `ls`), [fd](https://github.com/sharkdp/fd) (File discovery), [bat](https://github.com/sharkdp/bat) (File previews), [Delta](https://github.com/dandavison/delta) (Git diffs)
 
 ---
 

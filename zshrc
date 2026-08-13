@@ -1,6 +1,16 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Keep command resolution deterministic as tools add entries to PATH.
+typeset -U path PATH
+
+# Completion directories must be registered before Oh My Zsh runs compinit.
+fpath=(
+  "$HOME/.local/share/zsh/site-functions"
+  "$HOME/.grok/completions/zsh"
+  $fpath
+)
+
 # App terminals that should keep a lightweight shell instead of auto-starting tmux.
 is_agent_app_terminal() {
   [ -n "${CODEX_CI:-}" ] || case "${__CFBundleIdentifier:-}" in
@@ -93,11 +103,6 @@ source ~/dotfiles/aliases
 source ~/dotfiles/exports
 source ~/dotfiles/fzf.zsh
 
-# sentry
-fpath=("/Users/ben/.local/share/zsh/site-functions" $fpath)
-
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
-fpath=(~/.grok/completions/zsh $fpath)
-autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
