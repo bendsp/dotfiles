@@ -26,5 +26,6 @@ link_file "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 link_file "$DOTFILES_DIR/gitmux.conf" "$HOME/.gitmux.conf"
 link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 link_file "$DOTFILES_DIR/starship-codex.toml" "$HOME/.config/starship-codex.toml"
+link_file "$DOTFILES_DIR/agents/AGENTS.md" "$HOME/.codex/AGENTS.md"
 
 echo "Dotfiles installation complete!"
