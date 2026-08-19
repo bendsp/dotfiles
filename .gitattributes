@@ -1,0 +1,2 @@
+# Preserve this upstream-managed file byte-for-byte, including its trailing space.
+skills/shared/webapp-testing/SKILL.md whitespace=-trailing-space

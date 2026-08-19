@@ -1,6 +1,6 @@
 # Dotfiles
 
-This repository contains my personal dotfiles and the tools I use.
+My config, skills and tools I use.
 
 ## Tools & Environment
 
