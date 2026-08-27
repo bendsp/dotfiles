@@ -5,7 +5,7 @@ The shared skill store vendors material from the sources below. The `skills.sh` 
 | Upstream source | Skills | License |
 | --- | ---: | --- |
 | [cursor/plugins `pstack`](https://github.com/cursor/plugins/tree/main/pstack) | 13 | MIT, Copyright (c) 2026 Lauren Tan |
-| [clerk/skills](https://github.com/clerk/skills) | 10 | MIT in each skill's metadata |
+| [clerk/skills](https://github.com/clerk/skills) | 11 | MIT in each skill's metadata |
 | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | 5 | MIT, Copyright (c) 2025 Corey Haines |
 | [emilkowalski/skills](https://github.com/emilkowalski/skills) | 3 | MIT, Copyright (c) 2026 Emil Kowalski |
 | [anthropics/skills](https://github.com/anthropics/skills) | 2 | Apache-2.0 files included with the installed skills |

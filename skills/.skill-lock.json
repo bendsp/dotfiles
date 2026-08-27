@@ -80,9 +80,10 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/clerk/skills.git",
       "skillPath": "skills/core/clerk-setup/SKILL.md",
-      "skillFolderHash": "b466467e7285ba04135178c494a16eb433a6b429",
+      "skillFolderHash": "817c6f80d076ec7d512be6c02d4579e34ac1b72d",
+      "pluginName": "core",
       "installedAt": "2026-05-06T12:45:17.399Z",
-      "updatedAt": "2026-08-19T14:13:27.377Z"
+      "updatedAt": "2026-08-27T09:48:08.816Z"
     },
     "clerk-android": {
       "source": "clerk/skills",
@@ -133,34 +134,31 @@
       "updatedAt": "2026-08-19T14:13:31.730Z"
     },
     "shadcn": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/shadcn/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:857f558f874c974fe467422b458ec38f386ae8199f603ea4f8d7d9d6d6fe51e2",
+      "source": "shadcn-ui/ui",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/shadcn-ui/ui.git",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "skillFolderHash": "0a31c3c2535a62b22bf23a1b10a142178a6b7dbf",
       "installedAt": "2026-06-02T15:59:15.707Z",
-      "updatedAt": "2026-08-19T14:14:24.170Z"
+      "updatedAt": "2026-08-27T09:51:05.679Z"
     },
     "improve": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/improve/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:23e0b490bf5ce01f5e2e80347334859a64ab12988dc2465fba073c81048f97cb",
+      "source": "shadcn/improve",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/shadcn/improve.git",
+      "skillPath": "skills/improve/SKILL.md",
+      "skillFolderHash": "7d77d76815e6deb704427f17f6e393f55e3cb6da",
       "installedAt": "2026-06-12T14:39:10.174Z",
-      "updatedAt": "2026-08-19T14:14:24.174Z"
+      "updatedAt": "2026-08-27T09:47:06.525Z"
     },
     "animate": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/animate/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:876cfad9639dd726525e173fb169e7346c8da366a82468f278b54ce0cb255122",
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/emilkowalski/skills.git",
+      "skillPath": "skills/animate/SKILL.md",
+      "skillFolderHash": "adf23358fac7bdce5febcb85d7fd985407ead56f",
       "installedAt": "2026-08-10T14:00:36.956Z",
-      "updatedAt": "2026-08-19T14:14:24.171Z"
+      "updatedAt": "2026-08-27T09:50:54.733Z"
     },
     "find-animation-opportunities": {
       "source": "skills.sh",
@@ -173,54 +171,49 @@
       "updatedAt": "2026-08-19T14:14:24.172Z"
     },
     "copywriting": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/copywriting/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:bc81a6ceaa5d4745f040169f232a418a2923fdb8545d64410e4dcf446e8ee12d",
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/coreyhaines31/marketingskills.git",
+      "skillPath": "skills/copywriting/SKILL.md",
+      "skillFolderHash": "e5457b0306878bac731cda9a05e8b68d882b7b40",
       "installedAt": "2026-08-10T14:00:36.957Z",
-      "updatedAt": "2026-08-19T14:14:24.173Z"
+      "updatedAt": "2026-08-27T09:47:38.920Z"
     },
     "seo-audit": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/seo-audit/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:3f2e0723b00147523616ffd8bc17b4dbc1f12c47d9caef5f51f25b17fa22a064",
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/coreyhaines31/marketingskills.git",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "skillFolderHash": "88e419e823dc951fc243243ec91e888c5088f7f1",
       "installedAt": "2026-08-10T14:00:36.957Z",
-      "updatedAt": "2026-08-19T14:14:24.173Z"
+      "updatedAt": "2026-08-27T09:47:38.922Z"
     },
     "programmatic-seo": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/programmatic-seo/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:6e14eb8711b342c9f0a969af8235c2c01d9dc7407322fa1e73791d17a3ba6c32",
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/coreyhaines31/marketingskills.git",
+      "skillPath": "skills/programmatic-seo/SKILL.md",
+      "skillFolderHash": "afbffddf471de4fc36f31fb0e502be1d79a3cf1d",
       "installedAt": "2026-08-10T14:00:36.958Z",
-      "updatedAt": "2026-08-19T14:14:24.173Z"
+      "updatedAt": "2026-08-27T09:47:38.921Z"
     },
     "content-strategy": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/content-strategy/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:97e52363c6bbaf1ee3d3885f4c6185fd5c055bd589a45243b54033b693866f9f",
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/coreyhaines31/marketingskills.git",
+      "skillPath": "skills/content-strategy/SKILL.md",
+      "skillFolderHash": "331845a9e8be071ca8b7506bd9e07d5a54815cea",
       "installedAt": "2026-08-10T14:00:36.958Z",
-      "updatedAt": "2026-08-19T14:14:24.174Z"
+      "updatedAt": "2026-08-27T09:47:38.915Z"
     },
     "ai-seo": {
-      "source": "skills.sh",
-      "sourceType": "well-known",
-      "sourceUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe/.well-known/skills/ai-seo/SKILL.md",
-      "skillFolderHash": "",
-      "sourceBaseUrl": "https://www.skills.sh/p/wFhkKCkPDNwXMVJe",
-      "wellKnownDigest": "sha256:0c437419be900df88173ca44b53af928b6a2e905e1c1dd2eea79ccccc1faf66b",
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/coreyhaines31/marketingskills.git",
+      "skillPath": "skills/ai-seo/SKILL.md",
+      "skillFolderHash": "3d3825dce79012d45b95060f6d76b438d22653ee",
       "installedAt": "2026-08-10T14:00:36.959Z",
-      "updatedAt": "2026-08-19T14:14:24.174Z"
+      "updatedAt": "2026-08-27T09:47:38.910Z"
     },
     "blast-radius": {
       "source": "cursor/plugins",
@@ -357,6 +350,16 @@
       "pluginName": "mobile",
       "installedAt": "2026-08-19T14:13:49.858Z",
       "updatedAt": "2026-08-19T14:13:49.858Z"
+    },
+    "clerk-cli": {
+      "source": "clerk/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/clerk/skills.git",
+      "skillPath": "skills/core/clerk-cli/SKILL.md",
+      "skillFolderHash": "ceb38960d118cf23ec322bfc0193a33ae73af5c2",
+      "pluginName": "core",
+      "installedAt": "2026-08-27T09:48:43.630Z",
+      "updatedAt": "2026-08-27T09:48:43.630Z"
     }
   },
   "dismissed": {
