@@ -13,10 +13,23 @@ fpath=(
 
 # App terminals that should keep a lightweight shell instead of auto-starting tmux.
 is_agent_app_terminal() {
-  [ -n "${CODEX_CI:-}" ] || case "${__CFBundleIdentifier:-}" in
+  [ -n "${CODEX_CI:-}" ] && return 0
+  case "${__CFBundleIdentifier:-}" in
     com.openai.codex|com.openai.chat|com.openai.chatgpt|com.t3tools.t3code) return 0 ;;
-    *) return 1 ;;
   esac
+
+  # Codex's built-in terminal can omit the bundle identifier. Check its
+  # parent processes too, including when starting a nested interactive shell.
+  local ancestor_pid=$PPID ancestor_command depth
+  for depth in {1..16}; do
+    (( ancestor_pid > 1 )) || break
+    read -r ancestor_pid ancestor_command <<< "$(/bin/ps -p "$ancestor_pid" -o ppid= -o comm= 2>/dev/null)"
+    case "$ancestor_command" in
+      */Codex.app/Contents/MacOS/Codex|*/ChatGPT.app/Contents/MacOS/ChatGPT) return 0 ;;
+      tmux|*/tmux) return 1 ;;
+    esac
+  done
+  return 1
 }
 
 # Auto-start tmux (skip inside ChatGPT/Codex/T3 Code app terminals)
