@@ -15,6 +15,7 @@ from typing import Iterable
 
 FIELD_SEP = "\t"
 DEFAULT_LINES = 40
+MAX_WINDOWS_PER_SESSION = 9
 
 
 @dataclass
@@ -239,6 +240,12 @@ def command_setup_codex(args: argparse.Namespace) -> int:
     cwd = str(Path(args.cwd).expanduser().resolve()) if args.cwd else str(Path.home())
 
     if window_target is None:
+        windows = run_tmux(["list-windows", "-t", session, "-F", "#{window_id}"], check=True)
+        if len(windows.splitlines()) >= MAX_WINDOWS_PER_SESSION:
+            raise SystemExit(
+                f"Refusing to create a window: session '{session}' has reached the "
+                f"{MAX_WINDOWS_PER_SESSION}-window cap. Reuse an existing pane or split."
+            )
         run_tmux(["new-window", "-d", "-t", session, "-n", args.window_name, "-c", cwd], check=True)
         window_target = get_window_target(session, args.window_name)
         if window_target is None:

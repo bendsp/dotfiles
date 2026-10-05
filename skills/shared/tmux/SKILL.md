@@ -57,6 +57,16 @@ $HOME/.codex/skills/tmux/scripts/tmux_helper.py setup-codex --cwd "$HOME/Code/sa
 - Set the pane title to `codex` during setup.
 - When writing to another pane, state the exact tmux target in commentary.
 
+## Window limits and pane cleanup
+
+- Hard cap: nine windows per session, including user-owned windows. Count existing windows before creating one. Never create a tenth window or close a user-owned window to make room.
+- Reuse an available pane first. Prefer splits over new windows when another process needs its own pane.
+- Run temporary commands, experiments, retries, and offshoot work in splits within the `codex` window. A new command or task alone does not justify a new window.
+- Create a new window only for a persistent workflow that needs multiple panes. State the concrete reason before creating it, check the cap, and reuse an existing workflow window whenever possible.
+- Record the stable pane IDs of temporary panes you create. Close those panes as soon as their work is finished and their useful output has been captured. Do not leave idle shells behind after a task.
+- Keep a pane open while it runs a process the user still needs. Inspect it before cleanup. Do not close user-owned panes or panes created by another active task without authorization.
+- Keep the default `codex` pane available for reuse. When an agent-created workflow is finished and no longer needed, close its panes and window.
+
 Create or reuse the dedicated workspace with:
 
 ```bash
