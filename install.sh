@@ -41,6 +41,7 @@ link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 link_file "$DOTFILES_DIR/starship-codex.toml" "$HOME/.config/starship-codex.toml"
 link_file "$DOTFILES_DIR/agents/AGENTS.md" "$HOME/.codex/AGENTS.md"
 link_file "$DOTFILES_DIR/skills/shared" "$HOME/.agents/skills"
+link_file "$DOTFILES_DIR/skills/shared/tmux" "$HOME/.codex/skills/tmux"
 link_file "$DOTFILES_DIR/skills/.skill-lock.json" "$HOME/.agents/.skill-lock.json"
 
 echo "Dotfiles installation complete!"

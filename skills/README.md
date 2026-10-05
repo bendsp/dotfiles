@@ -4,13 +4,13 @@ This directory is the versioned source of truth for personal agent skills.
 
 ## Layout
 
-- `shared/` contains skills managed with `pnpx skills`. `~/.agents/skills` links to this directory.
+- `shared/` contains personal skills and skills managed with `pnpx skills`. `~/.agents/skills` links to this directory.
 - `.skill-lock.json` is the global `pnpx skills` registry. `~/.agents/.skill-lock.json` links to it.
 - `THIRD_PARTY.md` records upstream sources and license status.
 - `licenses/` contains notices required when the vendored skills are redistributed.
 - `audit.sh` checks skill structure and common private-data mistakes before publication.
 
-Everything under `~/.codex/skills`, including feature-provided and locally installed Codex skills, remains outside this repository. This avoids assuming that Codex installers or updaters preserve symlinks.
+OpenAI-provided Codex skills remain outside this repository. Personal skills belong here. The personal `tmux` skill lives in `shared/tmux`, with `~/.codex/skills/tmux` linked to it by the installer.
 
 ## Updating shared skills
 

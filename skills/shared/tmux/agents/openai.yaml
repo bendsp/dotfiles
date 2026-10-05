@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tmux"
+  short_description: "Collaborate through tmux panes safely"
+  default_prompt: "Use $tmux to inspect my tmux session, gather context from panes, and collaborate in the right pane."
