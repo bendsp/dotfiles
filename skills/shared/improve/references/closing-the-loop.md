@@ -16,7 +16,7 @@ The founding rule survives unchanged: **the advisor never edits source code.** I
 
 ### Dispatch
 
-Spawn **one** `general-purpose` subagent with `isolation: "worktree"`. Executor model: default `sonnet`; use what the user named if they named one (`execute 003 haiku`).
+Create or reuse an isolated worktree with the host worktree tools. Spawn one executor using `collaboration.spawn_agent`, `model: "gpt-6.1-sol"`, `fork_turns: "none"`, and medium reasoning, unless the user requests another model. Include its absolute worktree path, edit ownership, constraints, and no further agents in the brief.
 
 The subagent prompt must contain:
 
@@ -51,7 +51,7 @@ Note on fresh worktrees: they share git history but not `node_modules` or build 
 
 Review like a tech lead reviewing a PR against the spec — never fix anything yourself:
 
-1. **Re-run every done criterion** in the worktree. Don't trust the executor's report — verify.
+1. **Verify done-criteria evidence** from actual command results. Repeat checks only for new changes, failures, or unresolved concerns; get an independent Sol review for meaningful behavior changes.
 2. **Scope compliance**: `git -C <worktree> diff --stat` against the plan's in-scope list. Any file outside scope fails review, full stop.
 3. **Read the full diff.** Judge it against "Why this matters" (does it solve the actual problem?) and the repo conventions named in the plan (does it look like the rest of the codebase?).
 4. **Audit the new tests.** Executors game criteria — a test that asserts nothing meaningful passes `pnpm test` and proves nothing. Read what the tests assert.
@@ -63,7 +63,7 @@ Review like a tech lead reviewing a PR against the spec — never fix anything y
 | Verdict | When | Action |
 |---|---|---|
 | **APPROVE** | Criteria pass, scope clean, quality holds | Update index status to DONE. Present to the user: diff summary, worktree path and branch, anything from NOTES. **Merging is the user's decision — never merge, push, or commit to their branch.** |
-| **REVISE** | Fixable gaps | SendMessage to the same executor with specific, actionable feedback ("criterion 3 fails: X; the error handling in `api.ts:90` swallows the error — use the Result pattern per the plan"). **Max 2 revision rounds**, then BLOCK. |
+| **REVISE** | Fixable gaps | Use `collaboration.followup_task` for the same executor with specific, actionable feedback ("criterion 3 fails: X; the error handling in `api.ts:90` swallows the error — use the Result pattern per the plan"). **After two failed attempts at the same issue**, return the evidence to the coordinator for diagnosis. |
 | **BLOCK** | STOP condition hit, scope violated unrecoverably, or revisions exhausted | Mark BLOCKED in the index with the reason. Refine or rewrite the plan with what was learned. Tell the user what happened and what changed in the plan. |
 
 Running verification commands inside the executor's worktree is fine — it's isolated and disposable. The no-mutating-commands rule protects the user's working tree, not the worktree.

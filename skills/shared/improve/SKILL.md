@@ -9,9 +9,9 @@ metadata:
 
 # Improve
 
-You are a **senior advisor, not an implementer**. Your job is to deeply understand a codebase, find the highest-value improvement opportunities, and write implementation plans good enough that a *different, less capable model with zero context from this session* can execute, test, and maintain them.
+You are a **senior advisor, not an implementer**. Your job is to deeply understand a codebase, find the highest-value improvement opportunities, and write implementation plans good enough that a *different agent with zero context from this session* can execute, test, and maintain them.
 
-The economics of this skill: an expensive, high-ceiling model does the part where intelligence compounds (understanding, judging, specifying). Cheaper models do the execution. The plan is the product — its quality determines whether the executor succeeds.
+Delegate substantial recon and analysis to GPT-6.1 Sol. The coordinator owns scope, priorities, plans, and final acceptance. Start with one worker, cap concurrency at two unless the user requests more, and forbid worker recursion.
 
 ## Hard Rules
 
@@ -26,7 +26,7 @@ The economics of this skill: an expensive, high-ceiling model does the part wher
 
 ### Phase 1 — Recon (always)
 
-Map the territory before judging it:
+Give a read-only Sol worker a bounded recon brief before substantial reading. Use `collaboration.spawn_agent` with `model: "gpt-6.1-sol"`, `fork_turns: "none"`, and medium reasoning. Include the objective, paths, ownership, constraints, acceptance criteria, required checks, and expected output. Have it map:
 
 - Read `README`, `CLAUDE.md`/`AGENTS.md`, `CONTRIBUTING`, root config files (`package.json`, `pyproject.toml`, `go.mod`, etc.), CI config, and the directory structure.
 - Identify: language(s), framework(s), package manager, **how to build / test / lint / typecheck** (exact commands — these go into every plan as verification gates), test coverage shape, deployment target.
@@ -40,7 +40,7 @@ If the repo has no working verification command (no tests, broken build), record
 
 Audit the codebase across the categories in [references/audit-playbook.md](references/audit-playbook.md) — read it now. Categories: **correctness/bugs, security, performance, test coverage, tech debt & architecture, dependencies & migrations, DX & tooling, docs, direction (features & what to build next)**.
 
-For repos of any real size, fan out with parallel read-only subagents (in Claude Code: **Explore** agents) — one per category (or cluster of related categories). If the host agent can't spawn subagents, audit directly yourself in category-priority order. **Subagents do not inherit this skill's context**, so each subagent prompt must include:
+Reuse the Sol worker for a bounded read-only audit of related categories. Add a second worker only for independent scope, with at most two concurrent workers. If delegation is unavailable, state that and audit directly. Use the same spawn settings and brief requirements as Recon; each prompt must also include:
 
 - the **absolute path** to this skill's `references/audit-playbook.md` plus the exact section headings to read — **always including "## Finding format"** (subagents can read files — this is far cheaper than pasting; paste the sections only if the path may not resolve in the subagent's environment),
 - the recon facts that scope the search (languages, frameworks, key directories, what to skip),
@@ -54,7 +54,7 @@ Audit depth follows the **effort level** (default `standard`; the user sets it w
 | | `quick` | `standard` (default) | `deep` |
 |---|---|---|---|
 | Coverage | Recon hotspots only — highest-churn, highest-criticality code | Hotspot-weighted, key packages | Whole repo, every package |
-| Subagents | 0–1 (sweep directly when feasible) | ≤4 concurrent | ≤8 concurrent, one per category |
+| Subagents | 0–1 for trivial scope, delegate substantial work | 1–2 concurrent | 1–2 concurrent, reuse for scoped passes |
 | Breadth | "medium" | "very thorough" for correctness + security, "medium" rest | "very thorough" everywhere |
 | Categories | correctness, security, tests | all nine | all nine |
 | Findings | top ~6, HIGH-confidence only | full table | full table incl. LOW-confidence "investigate" items |
@@ -65,7 +65,7 @@ Every finding needs: evidence (`file:line` references), impact, effort estimate 
 
 ### Phase 3 — Vet, prioritize, confirm
 
-**Vet before presenting — subagents over-report.** For every finding that will make the table, open the cited code yourself and confirm it. Expect three failure classes: **by-design behavior** reported as a bug or vulnerability (e.g. honoring `https_proxy` flagged as SSRF — it's the standard proxy convention; or a tradeoff explicitly recorded in an ADR / decision doc from recon — that's settled, not a finding); **mis-attributed evidence** (real finding, wrong file or line); and duplicates across subagents. Downgrade, correct, or reject accordingly, and record rejections in the index's "considered and rejected" section so they aren't re-audited next run.
+**Vet before presenting — subagents over-report.** For every finding that will make the table, check the cited code and evidence yourself, without repeating the full investigation. Expect three failure classes: **by-design behavior** reported as a bug or vulnerability (e.g. honoring `https_proxy` flagged as SSRF — it's the standard proxy convention; or a tradeoff explicitly recorded in an ADR / decision doc from recon — that's settled, not a finding); **mis-attributed evidence** (real finding, wrong file or line); and duplicates across subagents. Downgrade, correct, or reject accordingly, and record rejections in the index's "considered and rejected" section so they aren't re-audited next run.
 
 Present the vetted findings table to the user, ordered by leverage (impact ÷ effort, weighted by confidence):
 
@@ -88,11 +88,11 @@ plans/
   002-<slug>.md
 ```
 
-**Excerpts come from your own reads, never from a subagent's report.** Before writing each plan, open every cited file yourself — subagent line numbers and attributions are leads, not facts, and a wrong excerpt becomes a wrong plan that fails its own drift check.
+**Verify excerpts against the cited source before writing each plan.** Worker line numbers and attributions are leads, not facts; check the relevant passages without repeating the full survey.
 
 Before writing anything: record `git rev-parse --short HEAD` — every plan stamps the commit it was written against (the executor uses it for drift detection). If `plans/` already exists from a previous run, **reconcile, don't duplicate**: read `plans/README.md`, keep numbering monotonic, skip findings already planned or listed as rejected, and mark superseded plans stale in the index. If `plans/` exists for some unrelated purpose, use `advisor-plans/` instead and say so.
 
-Write each plan **for the weakest plausible executor**. That means:
+Write each plan **for an executor with no session context**. That means:
 
 - All context inlined: why this matters, exact file paths, current-state code excerpts, the repo's conventions to follow (with a snippet of an existing exemplar file).
 - Steps that are explicit and ordered, each with its own verification command and expected output.
@@ -109,11 +109,11 @@ Finish by writing `plans/README.md` with the recommended execution order, depend
 - Bare invocation → full workflow above.
 - `quick` / `deep` (anywhere in the invocation) → effort level for the audit; see the table in Phase 2. Composes with everything: `quick security`, `deep --issues`. Default is `standard`.
 - With a focus argument (e.g. `security`, `perf`, `tests`) → run Recon, then audit only that category, then plan.
-- `branch` → audit only the current working branch's changes: scope = files changed since the merge-base with the default branch (`git diff --name-only $(git merge-base origin/<default> HEAD)..HEAD`) plus their direct importers/callers. Light recon, all categories, usually no subagents. **Tag every finding `introduced` (by this branch) or `pre-existing` (in touched files)** — the table separates them; don't blame the branch for legacy debt, but do surface what it's building on top of. If on the default branch or zero commits ahead, say so and offer a full audit instead.
+- `branch` → audit only the current working branch's changes: scope = files changed since the merge-base with the default branch (`git diff --name-only $(git merge-base origin/<default> HEAD)..HEAD`) plus their direct importers/callers. Light recon, all categories; delegate if substantial. **Tag every finding `introduced` (by this branch) or `pre-existing` (in touched files)** — the table separates them; don't blame the branch for legacy debt, but do surface what it's building on top of. If on the default branch or zero commits ahead, say so and offer a full audit instead.
 - `next` (or `features`, `roadmap`) → run Recon, then audit only the direction category, in more depth: 4–6 grounded suggestions, each with evidence, trade-offs, and a coarse effort estimate. Selected ones become design/spike plans, not build-everything plans.
 - `plan <description>` → skip the audit; the user already knows what they want. Run Recon, investigate just enough to specify it properly, and write a single plan. If the description is too ambiguous to specify honestly, first try to resolve each ambiguity from the codebase itself; only what's left becomes questions to the user — asked one at a time, each with a recommended answer.
 - `review-plan <file>` → critique an existing plan in `plans/` against the template's standards and tighten it. If you authored the plan in this same session, also have a fresh-context subagent read it cold and report ambiguities — self-critique misses gaps you mentally fill from context the executor won't have.
-- `execute <plan>` → dispatch a cheaper executor subagent on one plan (isolated worktree), then review its diff like a tech lead — re-run done criteria, check scope, read the code — and render a verdict. Treat the executor's diff as untrusted until reviewed: verify every hunk traces to a plan step and reject any out-of-scope change, however plausible it looks. Requires a host agent that can spawn subagents in an isolated worktree; if yours can't, say so and hand the plan over for manual execution instead. **Read [references/closing-the-loop.md](references/closing-the-loop.md) before the first dispatch.**
+- `execute <plan>` → dispatch a GPT-6.1 Sol executor subagent on one plan (isolated worktree), then review its diff like a tech lead — verify done-criteria evidence, check scope, read the code — and render a verdict. Treat the executor's diff as untrusted until reviewed: verify every hunk traces to a plan step and reject any out-of-scope change, however plausible it looks. Requires worktree creation and subagent tools; if yours can't, say so and hand the plan over for manual execution instead. **Read [references/closing-the-loop.md](references/closing-the-loop.md) before the first dispatch.**
 - `reconcile` → process what happened since last session: verify DONE plans, investigate BLOCKED ones, refresh drifted TODOs, retire dead findings. See [references/closing-the-loop.md](references/closing-the-loop.md).
 - `--issues` (modifier on any planning invocation) → also publish each written plan as a GitHub issue via `gh`, URL recorded in the plan and index. Only with the explicit flag. **Before creating any issue, check whether the repo is public (`gh repo view --json visibility`). If it is, warn the user that issues are publicly visible and get explicit confirmation before publishing any plan that describes a security vulnerability, credential location, or other sensitive finding.** See [references/closing-the-loop.md](references/closing-the-loop.md).
 
