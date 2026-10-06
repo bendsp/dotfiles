@@ -1,6 +1,6 @@
 ---
 name: tmux
-description: Collaborate with the user's tmux environment by discovering sessions, reading pane scrollback, searching pane contents, reserving a dedicated Codex pane/window, and sending safe input to target panes. Use when Codex needs to inspect tmux for task context, find the pane the user is referring to, set up or use a shared terminal workflow, or interact with existing tmux panes on the user's behalf.
+description: Use when starting servers or ongoing processes, running commands the user requested, or inspecting existing terminals, tmux panes, sessions, or logs. Find and reuse the relevant pane, and manage temporary terminal work in the shared Codex window.
 ---
 
 # Tmux
